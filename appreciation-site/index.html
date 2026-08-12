@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>It's Dani's Day Today</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-warm: #f4e9ea;
+    --accent: #6d1b2c;
+    --accent-light: #9b3a4d;
+    --text: #1a1a1a;
+    --text-muted: #4a4a4a;
+    --border: #d8c3c6;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--text);
+    background: linear-gradient(160deg, var(--bg) 0%, var(--bg-warm) 40%, var(--bg) 70%, var(--bg-warm) 100%);
+    background-attachment: fixed;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  section {
+    position: relative;
+  }
+
+  .page-section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem;
+  }
+
+  .divider {
+    border: none;
+    height: 1px;
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--border);
+  }
+
+  /* ---------- Reveal-on-scroll ---------- */
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- Hero ---------- */
+
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-name {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(3.2rem, 13vw, 7.5rem);
+    color: var(--text);
+    line-height: 1.05;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(0.95rem, 2.8vw, 1.3rem);
+    color: var(--text-muted);
+    margin-top: 1.25rem;
+    max-width: 32ch;
+  }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+
+  /* ---------- Birthday scene ---------- */
+
+  #birthday-scene {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+    text-align: center;
+  }
+
+  .cake-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cake-svg {
+    width: min(260px, 70vw);
+    overflow: visible;
+  }
+
+  .scene-caption {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(0.95rem, 2.8vw, 1.3rem);
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+    max-width: 32ch;
+    opacity: 0;
+    animation: captionFade 0.8s ease-out forwards;
+    animation-delay: 0.5s;
+    animation-play-state: paused;
+  }
+
+  .cake-body {
+    fill: var(--bg-warm);
+    stroke: var(--border);
+    stroke-width: 0.3;
+  }
+
+  .cake-frosting {
+    fill: var(--accent);
+  }
+
+  .sprinkle {
+    fill: var(--bg);
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+    animation: sprinklePop 0.5s ease-out forwards;
+    animation-play-state: paused;
+  }
+
+  .sprinkle:nth-child(odd) {
+    fill: var(--accent-light);
+  }
+
+  .sprinkle:nth-child(1) { animation-delay: 0.03s; }
+  .sprinkle:nth-child(2) { animation-delay: 0.06s; }
+  .sprinkle:nth-child(3) { animation-delay: 0.09s; }
+  .sprinkle:nth-child(4) { animation-delay: 0.12s; }
+  .sprinkle:nth-child(5) { animation-delay: 0.15s; }
+  .sprinkle:nth-child(6) { animation-delay: 0.18s; }
+  .sprinkle:nth-child(7) { animation-delay: 0.21s; }
+  .sprinkle:nth-child(8) { animation-delay: 0.24s; }
+  .sprinkle:nth-child(9) { animation-delay: 0.27s; }
+  .sprinkle:nth-child(10) { animation-delay: 0.3s; }
+  .sprinkle:nth-child(11) { animation-delay: 0.33s; }
+  .sprinkle:nth-child(12) { animation-delay: 0.36s; }
+  .sprinkle:nth-child(13) { animation-delay: 0.39s; }
+  .sprinkle:nth-child(14) { animation-delay: 0.42s; }
+
+  .frosting-anim {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    animation: frostingSettle 0.6s ease-out forwards;
+    animation-play-state: paused;
+  }
+
+  .eye-body {
+    fill: var(--text);
+  }
+
+  .eye-pupil {
+    fill: var(--bg);
+  }
+
+  .eye-blink {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: blink 4s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  .eye:nth-of-type(2) .eye-blink {
+    animation-delay: 0.15s;
+  }
+
+  .mouth {
+    fill: var(--text);
+  }
+
+  .candle-stick {
+    fill: var(--bg);
+    stroke: var(--border);
+    stroke-width: 0.3;
+  }
+
+  .flame-outer {
+    fill: var(--accent-light);
+  }
+
+  .flame-inner {
+    fill: var(--bg);
+  }
+
+  .candle-flame {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    animation: candleFlicker 0.6s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  .candle:nth-of-type(2) .candle-flame { animation-delay: 0.15s; }
+  .candle:nth-of-type(3) .candle-flame { animation-delay: 0.3s; }
+
+  #birthday-scene:not(.not-lit) .frosting-anim,
+  #birthday-scene:not(.not-lit) .sprinkle,
+  #birthday-scene:not(.not-lit) .eye-blink,
+  #birthday-scene:not(.not-lit) .candle-flame,
+  #birthday-scene:not(.not-lit) .scene-caption {
+    animation-play-state: running;
+  }
+
+  @keyframes candleFlicker {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(0.85, 1.1) rotate(-3deg); opacity: 0.85; }
+  }
+
+  @keyframes blink {
+    0%, 90%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.1); }
+  }
+
+  @keyframes sprinklePop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes frostingSettle {
+    0% { transform: scaleY(0.3); opacity: 0; }
+    100% { transform: scaleY(1); opacity: 1; }
+  }
+
+  @keyframes captionFade {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Chapter scaffold ---------- */
+
+  .section-label {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    color: var(--text);
+    margin-bottom: 2rem;
+  }
+
+  .letter-body {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 2.4vw, 1.12rem);
+    color: var(--text-muted);
+    line-height: 1.95;
+    white-space: pre-line;
+  }
+
+  .letter-signature {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--accent-light);
+    margin-top: 2rem;
+  }
+
+  /* ---------- Gallery ---------- */
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 560px) {
+    .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .gallery-item {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    background: var(--bg-warm);
+    border: 1px dashed var(--border);
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .gallery-item img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(0.25) brightness(0.97);
+    transform: scale(1);
+    transition: filter 0.4s ease, transform 0.4s ease;
+  }
+
+  .gallery-item:hover img {
+    filter: sepia(0) brightness(1);
+    transform: scale(1.04);
+  }
+
+  .gallery-item .placeholder-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .gallery-carousel {
+    margin-top: 2rem;
+    overflow: hidden;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .carousel-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+
+  .carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .carousel-arrow {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .carousel-arrow:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: var(--border);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .carousel-dot.active {
+    background: var(--accent);
+    transform: scale(1.2);
+  }
+
+  /* ---------- Closing ---------- */
+
+  #closing {
+    text-align: center;
+  }
+
+  .closing-line {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 5vw, 2.4rem);
+    color: var(--text);
+    margin-bottom: 3rem;
+  }
+
+  .credits {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .credits-label {
+    display: block;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+  }
+
+  .credits p {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+  <section id="hero">
+    <p class="hero-eyebrow">Happy Birthday</p>
+    <h1 class="hero-name">Daniela David</h1>
+    <p class="hero-tagline">My love with the marketing brain, barista hands, creative heart and somehow, sa akin lahat 'to.</p>
+    <span class="hero-scroll-hint">scroll</span>
+  </section>
+
+  <section id="birthday-scene" class="not-lit">
+    <div class="cake-scene">
+      <svg class="cake-svg" viewBox="0 0 76.609 47.643" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+        <rect class="cake-body" x="8" y="25" width="60" height="17" rx="4"/>
+
+        <g class="frosting-wrap" transform="translate(-48.82 -138.799)">
+          <g class="frosting-anim">
+            <path class="cake-frosting" d="M58.311 159.194c-1.915 0-3.354 2.034-3.986 3.744-.57 1.537-.953 4.189.529 4.888 1.454.687 2.425-2.645 4.034-2.645 1.608 0 2.425 2.645 4.033 2.645 1.608 0 2.426-2.645 4.034-2.645 1.608 0 2.426 2.645 4.034 2.645 1.608 0 2.426-2.645 4.034-2.645 1.608 0 2.426 2.645 4.034 2.645 1.608 0 2.425-2.645 4.033-2.645 1.608 0 2.426 2.645 4.034 2.645 1.608 0 2.426-2.645 4.034-2.645 1.608 0 2.426 2.645 4.034 2.645 1.608 0 2.425-2.645 4.033-2.645 1.608 0 2.436-2.83 4.034-2.645 1.936.222 2.084 4.233 4.033 4.233 1.95 0 2.098-4.01 4.034-4.233 1.598-.184 2.426 2.645 4.034 2.645 1.608 0 2.426-2.645 4.034-2.645 1.608 0 2.58 3.332 4.033 2.645 1.482-.7 1.098-3.35.53-4.888-.633-1.71-2.072-3.744-3.987-3.744z"/>
+          </g>
+        </g>
+
+        <g class="sprinkles">
+          <circle class="sprinkle" cx="14" cy="21" r="1"/>
+          <circle class="sprinkle" cx="19" cy="25" r="0.9"/>
+          <circle class="sprinkle" cx="24" cy="20" r="1.1"/>
+          <circle class="sprinkle" cx="29" cy="24" r="0.9"/>
+          <circle class="sprinkle" cx="34" cy="21" r="1"/>
+          <circle class="sprinkle" cx="39" cy="25" r="1"/>
+          <circle class="sprinkle" cx="44" cy="20" r="0.9"/>
+          <circle class="sprinkle" cx="49" cy="24" r="1.1"/>
+          <circle class="sprinkle" cx="54" cy="21" r="1"/>
+          <circle class="sprinkle" cx="59" cy="25" r="0.9"/>
+          <circle class="sprinkle" cx="17" cy="27" r="0.8"/>
+          <circle class="sprinkle" cx="62" cy="20" r="1"/>
+          <circle class="sprinkle" cx="27" cy="27" r="0.9"/>
+          <circle class="sprinkle" cx="52" cy="27" r="0.8"/>
+        </g>
+
+        <g class="cake-face" transform="translate(-48.82 -138.799)">
+          <g class="eye" transform="matrix(1.38031 0 0 1.38031 34.723 -33.58)">
+            <g class="eye-blink">
+              <circle class="eye-body" cx="29.86" cy="149.022" r="2.457"/>
+              <circle class="eye-pupil" cx="28.773" cy="148.162" r=".756"/>
+            </g>
+          </g>
+          <g class="eye" transform="matrix(1.38031 0 0 1.38031 57.092 -33.58)">
+            <g class="eye-blink">
+              <circle class="eye-body" cx="29.86" cy="149.022" r="2.457"/>
+              <circle class="eye-pupil" cx="28.773" cy="148.162" r=".756"/>
+            </g>
+          </g>
+          <path class="mouth" d="M83.607 174.436a3.652 3.652 0 003.518 2.674 3.652 3.652 0 003.515-2.674z"/>
+        </g>
+
+        <g class="candle" transform="translate(-48.82 -137.74)">
+          <rect class="candle-stick" ry=".567" y="147.888" x="72.548" height="12.001" width="4.252"/>
+          <g class="candle-flame">
+            <path class="flame-outer" d="M75.672 145.92c.608 1.207.086 2.224-.749 2.224s-1.512-.037-1.512-1.388.558-3.566 1.98-3.973c1.007-.288-.855.884.281 3.138z"/>
+            <path class="flame-inner" d="M75.081 146.449c.41.51.266 1.043-.13 1.128-.394.084-.682-.228-.822-.866 0 0-.13-1.382.502-1.719.447-.238-.315.505.45 1.457z"/>
+          </g>
+        </g>
+        <g class="candle" transform="translate(-23.82 -137.74)">
+          <rect class="candle-stick" ry=".567" y="147.888" x="72.548" height="12.001" width="4.252"/>
+          <g class="candle-flame">
+            <path class="flame-outer" d="M75.672 145.92c.608 1.207.086 2.224-.749 2.224s-1.512-.037-1.512-1.388.558-3.566 1.98-3.973c1.007-.288-.855.884.281 3.138z"/>
+            <path class="flame-inner" d="M75.081 146.449c.41.51.266 1.043-.13 1.128-.394.084-.682-.228-.822-.866 0 0-.13-1.382.502-1.719.447-.238-.315.505.45 1.457z"/>
+          </g>
+        </g>
+        <g class="candle" transform="translate(-36.82 -137.24)">
+          <rect class="candle-stick" ry=".567" y="147.888" x="72.548" height="12.001" width="4.252"/>
+          <g class="candle-flame">
+            <path class="flame-outer" d="M75.672 145.92c.608 1.207.086 2.224-.749 2.224s-1.512-.037-1.512-1.388.558-3.566 1.98-3.973c1.007-.288-.855.884.281 3.138z"/>
+            <path class="flame-inner" d="M75.081 146.449c.41.51.266 1.043-.13 1.128-.394.084-.682-.228-.822-.866 0 0-.13-1.382.502-1.719.447-.238-.315.505.45 1.457z"/>
+          </g>
+        </g>
+      </svg>
+      <p class="scene-caption">another year ng kape, creativity, at ikaw na pang araw-araw. happy birthday. virtual birthday cake muna ah, sa Friday nalang hahaha</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="letter" class="page-section">
+    <span class="section-label reveal">The Portfolio</span>
+    <h2 class="section-title reveal">Ito Na Ang Pinakamagandang Ginawa Ko.</h2>
+    <p class="letter-body reveal">Happy Birthday, my love!
+
+I’m so excited and happy that I get to celebrate your special day with you. Watching you grow and step into this new chapter now that you’re in school fills my heart with so much pride. Continue to soar high, aim higher, and keep chasing those big, beautiful dreams and through it all, always keep your faith and prayers strong.
+
+I know I am not always that good with words, but I want to make sure you know just how deeply I love you. I thank God every day for giving me the chance to celebrate life by your side. You are, without a doubt, my absolute greatest blessing, and I am so deeply grateful for you. I hope your birthdays are better than the past ones, you deserve to have something good… Thank you so much for being the person that you are… I love you!</p>
+    <p class="letter-signature reveal">Mwah</p>
+  </section>
+
+  <hr class="divider">
+
+  <section id="gallery" class="page-section">
+    <span class="section-label reveal">The Blend</span>
+    <h2 class="section-title reveal">Mas Masarap Ang Kape Kapag Kasama Ka.</h2>
+
+    <div class="gallery-carousel">
+      <div class="carousel-track">
+
+        <div class="carousel-slide">
+          <div class="gallery-grid">
+            <div class="gallery-item"><img src="img/photo1.jpg" alt="[PHOTO_1_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo2.jpg" alt="[PHOTO_2_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo3.jpg" alt="[PHOTO_3_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo4.jpg" alt="[PHOTO_4_ALT]" loading="lazy"></div>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="gallery-grid">
+            <div class="gallery-item"><img src="img/photo5.jpg" alt="[PHOTO_5_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo6.jpg" alt="[PHOTO_6_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo7.jpg" alt="[PHOTO_7_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo8.jpg" alt="[PHOTO_8_ALT]" loading="lazy"></div>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="gallery-grid">
+            <div class="gallery-item"><img src="img/photo9.jpg" alt="[PHOTO_9_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo10.jpg" alt="[PHOTO_10_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo11.jpg" alt="[PHOTO_11_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo12.jpg" alt="[PHOTO_12_ALT]" loading="lazy"></div>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="gallery-grid">
+            <div class="gallery-item"><img src="img/photo13.jpg" alt="[PHOTO_13_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo14.jpg" alt="[PHOTO_14_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo15.jpg" alt="[PHOTO_15_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo16.jpg" alt="[PHOTO_16_ALT]" loading="lazy"></div>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="gallery-grid">
+            <div class="gallery-item"><img src="img/photo17.jpg" alt="[PHOTO_17_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo18.jpg" alt="[PHOTO_18_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo19.jpg" alt="[PHOTO_19_ALT]" loading="lazy"></div>
+            <div class="gallery-item"><img src="img/photo20.jpg" alt="[PHOTO_20_ALT]" loading="lazy"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="carousel-nav">
+        <button class="carousel-arrow" data-dir="-1" aria-label="Previous">&#8592;</button>
+        <div class="carousel-dots"></div>
+        <button class="carousel-arrow" data-dir="1" aria-label="Next">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="appreciation" class="page-section">
+    <span class="section-label reveal">The Brief</span>
+    <h2 class="section-title reveal">Wala Nang Kailangang I-pitch. Perfect Ka Na.</h2>
+    <p class="letter-body reveal">I hope your birthdays are better than the past ones, you deserve to have something good… Thank you so much for being the person that you are… I love you.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section id="closing" class="page-section">
+    <p class="closing-line reveal">Enjoy your special day!</p>
+    <div class="credits reveal">
+      <div>
+        <span class="credits-label">Made by</span>
+        <p>Me!</p>
+      </div>
+      <div>
+        <span class="credits-label">For</span>
+        <p>Daniela David</p>
+      </div>
+    </div>
+  </section>
+
+<script>
+  // ---------- Scroll-triggered reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach((el) => revealObserver.observe(el));
+
+  // ---------- Birthday scene (scroll-into-view, runs once) ----------
+  const birthdayScene = document.querySelector('#birthday-scene');
+  function checkBirthdayScene() {
+    if (birthdayScene.getBoundingClientRect().top < window.innerHeight) {
+      birthdayScene.classList.remove('not-lit');
+      window.removeEventListener('scroll', checkBirthdayScene);
+    }
+  }
+  window.addEventListener('scroll', checkBirthdayScene);
+  checkBirthdayScene();
+
+  // ---------- Gallery carousel (dynamic slide count) ----------
+  const track = document.querySelector('.carousel-track');
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dotsContainer = document.querySelector('.carousel-dots');
+  const slideCount = slides.length;
+  let currentSlide = 0;
+
+  for (let i = 0; i < slideCount; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  }
+  const dots = document.querySelectorAll('.carousel-dot');
+
+  function goToSlide(n) {
+    currentSlide = (n + slideCount) % slideCount;
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+  }
+
+  document.querySelectorAll('.carousel-arrow').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      goToSlide(currentSlide + Number(btn.dataset.dir));
+    });
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  track.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+  }, { passive: true });
+
+  track.addEventListener('touchend', (e) => {
+    const delta = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(delta) > 50) {
+      goToSlide(currentSlide + (delta < 0 ? 1 : -1));
+    }
+  }, { passive: true });
+</script>
+
+</body>
+</html>
